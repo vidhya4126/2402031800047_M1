@@ -1,0 +1,36 @@
+<html>
+    <head>
+        <title>Document Object Model</title>
+    </head>
+
+<body>
+    <h2>getElementById</h2>
+    <input type="text" id="myText">
+    <button onclick="firstFunction()">click me</button>   
+
+    
+    <script>
+        //getElementById
+        function firstFunction()
+        {
+            var txt = document.getElementById("myText");
+            alert(txt.value);
+        }
+        </script>
+
+        <h2>getElementByName</h2>
+        <input type="text" name="first">  
+        <button onclick="myFunction()">click me</button>
+
+        <script>
+        //getElementByName
+        function myFunction()
+        {
+            a=document.getElementsByName("first")[0];
+            alert(a.value);
+        }
+    </script>
+
+</body>
+
+</html>

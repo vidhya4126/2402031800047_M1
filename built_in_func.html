@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JavaScript Built-in Functions</title>
+    <style>
+        body { font-family: sans-serif; line-height: 1.6; padding: 20px; }
+        .result { background: #f4f4f4; padding: 10px; margin-bottom: 10px; border-left: 5px solid #333; }
+        code { color: #d63384; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <h2>JavaScript Global Functions Demo</h2>
+
+    <div class="result" id="eval"></div>
+    <div class="result" id="isFinite"></div>
+    <div class="result" id="parseInt"></div>
+    <div class="result" id="parseFloat"></div>
+    <div class="result" id="isNaN"></div>
+
+    <script>
+        // 1. eval(expr) - Evaluates a string as JavaScript code
+        const mathExpr = "10 + 20 * 2";
+        document.getElementById('eval').innerHTML = 
+            `<code>eval("${mathExpr}")</code>: ${eval(mathExpr)}`;
+
+        // 2. isFinite(x) - Determines whether a value is a finite number
+        const finVal = 123;
+        document.getElementById('isFinite').innerHTML = 
+            `<code>isFinite(${finVal})</code>: ${isFinite(finVal)} (Infinity is false)`;
+
+        // 3. parseInt(s) - Parses a string and returns an integer
+        const intStr = "42.99px";
+        document.getElementById('parseInt').innerHTML = 
+            `<code>parseInt("${intStr}")</code>: ${parseInt(intStr)}`;
+
+        // 4. parseFloat(s) - Parses a string and returns a floating point number
+        const floatStr = "3.14meters";
+        document.getElementById('parseFloat').innerHTML = 
+            `<code>parseFloat("${floatStr}")</code>: ${parseFloat(floatStr)}`;
+
+        // 5. isNaN(x) - Determines whether a value is NaN (Not-a-Number)
+        const nanVal = "Hello";
+        document.getElementById('isNaN').innerHTML = 
+            `<code>isNaN("${nanVal}")</code>: ${isNaN(nanVal)}`;
+    </script>
+
+</body>
+</html>

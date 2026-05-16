@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        //Creating objects using new Object()
+        var person = new Object();
+        // Assign fields to object "person"
+
+        person.firstName = "Sandip";
+        person.lastName = "Patel";
+
+        // Assign a method to object "person"
+        person.sayHi = ()=>{
+        alert("Welcome " + person.firstName + " " + person.lastName)
+        }
+        person.sayHi(); // Call the method in "person"
+
+        //Creating objects using Literal Notation
+        var person = {firstName: "Sandip", lastName: "Patel",
+            sayHi : function()
+            {
+            alert("Hi! " + person.firstName + " " + person.lastName);
+            }
+        }
+        person.sayHi(); // Call the method in "person"
+
+    </script>
+</body>
+</html>
