@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <style>
+        /* Center the form on the page */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        /* Card container styling */
+        #RegForm {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            width: 450px;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Table layout adjustments */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        td {
+            padding: 10px 0;
+            vertical-align: top;
+            color: #555;
+            font-weight: 500;
+        }
+
+        /* Input field styling */
+        input[type="text"], select, textarea {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus, select:focus, textarea:focus {
+            border-color: #4cae4c;
+            outline: none;
+        }
+
+        /* Error text style applied via JavaScript variable */
+        .error-msg {
+            color: #d9534f;
+            font-size: 12px;
+            margin-top: 4px;
+            display: block;
+            font-weight: normal;
+        }
+
+        /* Button styling */
+        input[type="submit"], input[type="reset"] {
+            padding: 10px 20px;
+            font-size: 14px;
+            font-weight: bold;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        input[type="submit"] {
+            background-color: #5cb85c;
+            color: white;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #4cae4c;
+        }
+
+        input[type="reset"] {
+            background-color: #eee;
+            color: #333;
+            margin-left: 10px;
+        }
+
+        input[type="reset"]:hover {
+            background-color: #ddd;
+        }
+    </style>
+</head>
+<body>
+
+    <form name="RegForm" method="post" id="RegForm" onsubmit="return validate()">
+        <table>
+            <tr>
+                <td colspan="2">
+                    <h1>Registration Form</h1>
+                </td>
+            </tr>
+            <tr>
+                <td width="30%">Name:</td>
+                <td>
+                    <input type="text" name="Name" />
+                    <!-- Placeholder span to inject style via JavaScript -->
+                    <span id="nameErr" class="error-msg"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>E-mail Address:</td>
+                <td>
+                    <input type="text" name="EMail" />
+                    <span id="emailErr" class="error-msg"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>Password:</td>
+                <td>
+                    <!-- Changed type to 'password' to hide characters properly -->
+                    <input type="password" name="Password" />
+                    <span id="passwordErr" class="error-msg"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>Mobile:</td>
+                <td>
+                    <input type="text" name="Telephone" />
+                    <span id="phoneErr" class="error-msg"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>Select Course:</td>
+                <td>
+                    <select name="Subject">
+                        <!-- Added an unselectable default option for valid conditional checks -->
+                        <option value="" disabled selected hidden>-- Choose a Course --</option>
+                        <option value="B.Tech">B.Tech</option>
+                        <option value="M.Tech">M.Tech</option>
+                        <option value="BCA">BCA</option>
+                        <option value="MCA">MCA</option>
+                    </select>
+                    <span id="subjectErr" class="error-msg"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>Comments:</td>
+                <td><textarea cols="40" rows="3" name="Comment"></textarea></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <input type="submit" value="Submit" name="Submit" />
+                    <input type="reset" value="Reset" name="Reset" onclick="clearErrors()" />
+                </td>
+            </tr>
+        </table>
+    </form>
+
+    <script>
+        function validate() {
+            var form1 = document.getElementById("RegForm");
+            var name = form1.Name.value.trim();
+            var email = form1.EMail.value.trim();
+            var phone = form1.Telephone.value.trim();
+            var what = form1.Subject.value;
+            var password = form1.Password.value;
+
+            var regEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+            var regPhone = /^\d{10}$/;
+
+            // Reset error messages on every submission click
+            clearErrors();
+
+            // 1. Name validation
+            if (name == "") {
+                document.getElementById("nameErr").innerText = "Please Enter Your Name";
+                form1.Name.style.borderColor = "#d9534f"; // Red border style applied to variable target
+                return false;
+            }
+
+            // 2. Email validation
+            if (email == "" || !regEmail.test(email)) {
+                document.getElementById("emailErr").innerText = "Please enter a valid e-mail address.";
+                form1.EMail.style.borderColor = "#d9534f";
+                return false;
+            }
+
+            // 3. Password validations
+            if (password == "") {
+                document.getElementById("passwordErr").innerText = "Please enter your password.";
+                form1.Password.style.borderColor = "#d9534f";
+                return false;
+            }
+            if (password.length < 6) {
+                document.getElementById("passwordErr").innerText = "Password must be at least 6 characters long.";
+                form1.Password.style.borderColor = "#d9534f";
+                return false;
+            }
+
+            // 4. Phone validation
+            if (phone == "" || !regPhone.test(phone)) {
+                document.getElementById("phoneErr").innerText = "Please enter a valid 10-digit phone number.";
+                form1.Telephone.style.borderColor = "#d9534f";
+                return false;
+            }
+
+            // 5. Dropdown validation
+            if (what == "") {
+                document.getElementById("subjectErr").innerText = "Please select your course.";
+                form1.Subject.style.borderColor = "#d9534f";
+                return false;
+            }
+
+            return true;
+        }
+
+        // Auxiliary function to clear prior validation error styles
+        function clearErrors() {
+            var errorSpans = document.getElementsByClassName("error-msg");
+            for (var i = 0; i < errorSpans.length; i++) {
+                errorSpans[i].innerText = "";
+            }
+            
+            var inputs = document.querySelectorAll("#RegForm input, #RegForm select");
+            for (var j = 0; j < inputs.length; j++) {
+                inputs[j].style.borderColor = "#ccc";
+            }
+        }
+    </script>
+</body>
+</html>
