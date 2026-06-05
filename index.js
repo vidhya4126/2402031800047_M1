@@ -1,36 +1,37 @@
 const express = require('express')
 const app = express()
 
-app.listen(3001, () => {
-  console.log('Successfully connected on port 3001')
-})
+const mongoose = require('mongoose')
+const Contact = require('./models/contacts.models')
 
-app.get('/', (req, res) => {
-    res.send("<h1>Welcome to the Home Page</h1>")
-})
+//Database connection
+mongoose.connect( 'mongodb://127.0.0.1:27017/contact-crud')
+.then(() => console.log('Database connected successfully'))
 
-app.get('/about', (req, res) => {
-    res.send("<h1>About Page</h1>")
-})
+//Middleware
+app.set('view engine', 'ejs')
+app.use(express.urlencoded({ extended: false }))
+app.use(express.static('public'))
 
-app.get('/gallery', (req, res) => {
-    res.send("<h1>Gallery Page</h1>")
-})
+//routes
+app.get('/', async (req, res) => {
+  const contacts = await Contact.find()
+  res.render('home',{ contacts }) 
+  })
 
-app.get('/about/user', (req, res) => {
-    res.send("<h1>User Page</h1>")
-})
+app.get('/show-contact', (req, res) => { res.render('show-contact') })
 
-app.get('/random.text', (req, res) => {
-    res.send("<h1>Random Page</h1>")
-})
+app.get('/add-contact', (req, res) => { res.render('add-contact') })
 
-app.get('/user/:userid-:bookid', (req, res) => {
-    res.send( req.params)
-})
+app.post('/add-contact', (req, res) => {})
 
-app.get('/search', (req, res) => {
-    const name= req.query.name
-    const age= req.query.age
-    res.send(`Search results for Name: ${name}, Age: ${age}`)
+app.get('/update-contact', (req, res) => { res.render('update-contact') })
+
+app.post('/update-contact', (req, res) => {})
+
+app.get('/delete-contact', (req, res) => {})
+ 
+
+app.listen(3002, () => {
+  console.log('Server started successfully on port 3000')
 })
